@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <!-- 행과 열 갯수 입력받아서 테이블 만들기 -->
+    <h1>행 열 갯수</h1>
+    <form>
+      <button type="button" onclick="countHere();">테이블 생성</button>
+    </form>
+    <div id="tablePlace"></div>
+
+    <table border="1">
+      <tr>
+        <td>1</td>
+        <td>2</td>
+      </tr>
+      <tr>
+        <td>3</td>
+        <td>4</td>
+        <td>5</td>
+      </tr>
+    </table>
+    <script>
+      function countHere() {
+        // console.log(prompt('열의 개수를 입력하세요'));
+        // console.log(prompt('행의 개수를 입력하세요'));
+        // prompt 에서 값 입력받기
+        let columnNum = prompt("열의 개수를 입력하세요");
+        let rowNum = prompt("열의 개수를 입력하세요");
+        // 콘솔에서 제대로 나오나 확인
+        console.log(Number(columnNum));
+        console.log(Number(rowNum));
+        // 숫자값 형변환
+        columnNum = Number(columnNum);
+        rowNum = Number(rowNum);
+
+        // 테이블 생성
+        let myTable = "<table border='1'>";
+        let co = 1;
+        for (let i = 0; i < columnNum; i++) {
+          myTable += "<tr>";
+          for (let j = 0; j < rowNum; j++) {
+            myTable += "<td>" + co++ + "</td>";
+          }
+          myTable += "</tr>";
+        }
+        myTable += "</table>";
+        console.log(myTable);
+        document.getElementById("tablePlace").innerHTML = myTable;
+      }
+    </script>
+
+    <h1>둥글둥글 테두리</h1>
+    <style>
+      #jing {
+        width: 150px;
+        height: 150px;
+        border: 4px dotted green;
+        border-radius: 40px;
+      }
+    </style>
+    <div>
+      <img id="jing" src="../resources/jing.png" />
+
+      <input
+        id="jingNum"
+        type="range"
+        max="75"
+        min="0"
+        step="5"
+        onchange="radiusAdd(this);"
+      />
+      <span id="jingValue"></span>
+    </div>
+
+    <script>
+      function radiusAdd(round) {
+        // let jing_Img = document.getElementById('jing');
+        // input 형태 range 요소
+        let jing_Num = round.value;
+        // 옆 공간
+        let jing_Val = document.getElementById("jingValue");
+        // 옆 공간은 range의 값이다
+        jing_Val.innerHTML = jing_Num;
+
+        document.getElementById("jing").style.borderRadius = jing_Num + "px";
+        jing_Val.innerHTML = jing_Num; // 값 업데이트
+      }
+    </script>
+    <style>
+    fieldset{
+        background-color: rgba(184, 177, 177, 0.699);
+        text-align: center;
+    }
+    legend{
+        text-align: center;
+    }
+</style>
+<style>
+    #bookHere{
+        background-color: rgb(255, 255, 179);
+       
+    }
+</style>
+<fieldset>
+    <legend>검색할 항목을 선택하세요.</legend>
+    <input type="radio" id="title" name="book" onchange="titleBook();" value="1">
+    <label for="title">제목</label>
+    <input type="radio" id="date" name="book"onchange="titleBook();" value="2">
+    <label for="date">날짜</label>
+    <input type="radio" id="diction" name="book"onchange="titleBook();" value="3">
+    <label for="diction">작성자</label>
+</fieldset>
+<hr>
+<div id="bookHere"></div>
+
+
+<script>
+ 
+    function titleBook(){
+    let getTitle = document.getElementsByTagName('input');
+    let selectTitle;
+    for(let i = 1; i <= getTitle.length;i++){
+        if(getTitle[i].checked){
+            selectTitle = getTitle[i].value;
+            console.log(selectTitle);
+            break;
+        }
+    }
+    let book_Here = document.getElementById('bookHere');
+    if(selectTitle === '1'){
+        book_Here.innerHTML = `<label for="titleGet">검색할 제목을 입력하세요 : </label><br>
+        <input type="text" id="titleGet"><button type="button">검색</button>`;
+    }else if(selectTitle === '2'){
+        book_Here.innerHTML = `<label for="titleGet">검색할 날짜를 입력하세요 : </label><br>
+        <input type="date" id="titleGet">~<input type="date" id="titleGet"><button type="button">검색</button>`;
+    }else if(selectTitle === '3'){
+        book_Here.innerHTML = `<label for="titleGet">작성자를 입력하세요 : </label><br>
+        <input type="text" id="titleGet"><button type="button">검색</button>`;
+    }
+    }
+    
+</script>
+  </body>
+</html>
